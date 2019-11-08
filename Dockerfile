@@ -23,4 +23,4 @@ RUN echo 'RewriteEngine On' >> /var/www/html/.htaccess \
       && echo 'RewriteRule ^(.*)$ index.php/$1 [NC,L]' >> /var/www/html/.htaccess
 
 COPY ./entrypoint.sh /
-ENTRYPOINT /entrypoint.sh
+ENTRYPOINT ["sh", "/entrypoint.sh"]
