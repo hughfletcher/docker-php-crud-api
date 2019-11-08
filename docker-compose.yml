@@ -1,0 +1,31 @@
+version: '3.2'
+
+services:
+  api:
+    build: .
+    restart: always
+    ports:
+      - 80:80
+    environment:
+      PCA_PASSWORD: world
+      PCA_USER: world
+      PCA_DATABASE: world
+      PCA_ADDRESS: db
+      PCA_CONFIG_EXTRA: ",'middlewares' => 'cors,basicAuth'"
+      PCA_HTPASSWD: 'username1:password1'
+  db:
+    image: mysql:5.7
+    volumes:
+      - ./testing:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: world
+      MYSQL_USER: world
+      MYSQL_PASSWORD: world
+      MYSQL_DATABASE: world
+  adminer:
+    image: adminer:4.7.2
+    networks:
+      - default
+    ports:
+      - 8080:8080
+    restart: always
